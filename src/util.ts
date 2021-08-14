@@ -92,7 +92,10 @@ export function toArray<T>(arrayLike: any): T[] {
 }
 
 function px(node: HTMLElement, styleProperty: string) {
-  const val = window.getComputedStyle(node).getPropertyValue(styleProperty)
+  const cssStyleDeclaration = document.body.contains(node)
+    ? window.getComputedStyle(node)
+    : node.style
+  const val = cssStyleDeclaration.getPropertyValue(styleProperty)
   return parseFloat(val.replace('px', ''))
 }
 

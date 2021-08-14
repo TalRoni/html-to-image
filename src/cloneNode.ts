@@ -70,7 +70,9 @@ async function decorate<T extends HTMLElement>(
 }
 
 function cloneCssStyle<T extends HTMLElement>(nativeNode: T, clonedNode: T) {
-  const source = window.getComputedStyle(nativeNode)
+  const source = document.body.contains(nativeNode)
+    ? window.getComputedStyle(nativeNode)
+    : nativeNode.style
   const target = clonedNode.style
 
   if (!target) {
